@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" 10 times
+
+itr=0
+
+until [ "$itr" -eq 10 ]
+do
+  echo "Best School"
+  ((itr += 1))
+done
+
+exit 0

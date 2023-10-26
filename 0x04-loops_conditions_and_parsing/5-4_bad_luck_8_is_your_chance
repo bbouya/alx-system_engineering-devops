@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" 10 times
+
+itr=1
+
+while [ "$itr" -le 10 ]
+do
+    if [ "$itr" = 4 ]
+    then
+	echo "bad luck"
+    elif [ "$itr" = 8 ]
+    then
+	 echo "good luck"
+    else
+	echo "Best School"
+    fi
+    ((itr += 1))
+done
+
+exit 0
