@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Write a Bash script that displays to infinity and beyond indefinitely.
+# Requirements:
+# iteration a plus add seleep 2
+
+kill "$(pgrep -f 4-to_infinity_and_beyond)"

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# manage_my_process
+# Write "I am alive!" message to /tmp/my_process
+
+write_alive_message() {
+    echo "I am alive!" >> /tmp/my_process
+}
+
+while true; do
+    write_alive_message
+    sleep 2
+done

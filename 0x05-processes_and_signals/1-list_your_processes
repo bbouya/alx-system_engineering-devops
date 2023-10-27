@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# bash script that displays a list of currently rub processes.
+
+ps -auxf
