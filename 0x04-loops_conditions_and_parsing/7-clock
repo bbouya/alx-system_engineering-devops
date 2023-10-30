@@ -1,23 +1,17 @@
 #!/usr/bin/env bash
-# This script is displaying "Best School" 10 times
+# display time for 12 hours and 59 minutes
 
-hour=0
-min=0
+time_h=0
 
-while [ "$hour" -lt 13 ]
-do
-    if [ "$min" = 0 ]
-    then
-	echo "Hour:" $hour
-    else
-	echo $min
-    fi
-    ((min += 1))
-    if [ "$min" = 60 ]
-    then
-       ((min -= 60))
-       ((hour += 1))
-    fi
+while [ "$time_h" -le 12 ]; do
+  echo "Hour: $time_h"
+  
+  time_m=1
+  
+  while [ "$time_m" -lt 60 ]; do
+    echo "$time_m"
+    time_m=$((minute + 1))
+  done
+
+  time_h=$((hour + 1))
 done
-
-exit 0

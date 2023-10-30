@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
-# This script is displaying "Best School" 10 times
+# prints a string 10 times using while loop 
 
-itr=0
+i=0
 
-while [ "$itr" -lt 10 ]
-do
+while [ "$i" -lt 10 ]; do
   echo "Best School"
-  ((itr += 1))
+  ((i++))
 done
-
-exit 0

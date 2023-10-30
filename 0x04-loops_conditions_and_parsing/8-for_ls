@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
-# This script is displaying "Best School" 10 times
+# using for loop do
 
-for i in *
+for file in *; 
 do
-    if [[ "$i" != .* ]]
-    then
-	echo "${i#*-}"
-    fi
+  echo "$file" | cut -d '-' -f 2;
 done
-
-exit 0

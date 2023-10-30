@@ -1,20 +1,17 @@
 #!/usr/bin/env bash
-# This script is displaying "Best School" 10 times
+# 4 bad luck, 8 is your chance
 
-itr=1
+i=1
 
-while [ "$itr" -le 10 ]
+while [ "$i" -lt 11 ]; 
 do
-    if [ "$itr" = 4 ]
-    then
-	echo "bad luck"
-    elif [ "$itr" = 8 ]
-    then
-	 echo "good luck"
-    else
-	echo "Best School"
-    fi
-    ((itr += 1))
-done
+  if [ "$i" -eq 4 ]; then
+    echo "bad luck"
+  elif [ "$i" -eq 8 ]; then
+    echo "good luck"
+  else
+    echo "Best School"
+  fi
 
-exit 0
+  ((i++))
+done
