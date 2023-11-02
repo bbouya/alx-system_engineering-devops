@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# changes the IPS domaine
+#   localhost .1 to .2
+#   'facebook.com' from ip 157.240.11.35 to ip 8.8.8.8
+
+cp /etc/hosts ~/hosts.new
+echo "127.0.0.2		localhost" > ~/hosts.new
+echo "8.8.8.8		facebook.com" >> ~/hosts.new
+cp -f ~/hosts.new /etc/hosts
