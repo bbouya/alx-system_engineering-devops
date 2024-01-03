@@ -1,0 +1,21 @@
+{
+   "domainName": "andrea66.bit",
+   "parseCode": 0,
+   "audit": {
+      "createdDate": "2023-12-08 12:52:38 UTC",
+      "updatedDate": "2023-12-08 12:52:38 UTC"
+   },
+   "dataError": "INVALID_TLD",
+   "registryData": {
+      "domainName": "andrea66.bit",
+      "parseCode": 64,
+      "audit": {
+         "createdDate": "2023-12-08 12:52:38 UTC",
+         "updatedDate": "2023-12-08 12:52:38 UTC"
+      },
+      "dataError": "INVALID_TLD",
+      "whoisServer": "whois.nic.bit"
+   },
+   "domainAvailability": "AVAILABLE",
+   "domainNameExt": ".bit"
+}
