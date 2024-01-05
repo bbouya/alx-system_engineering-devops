@@ -1,13 +1,18 @@
 #!/usr/bin/env bash
-# Configure Nginx server so that /redirect_me is redirecting to another page
-# redirection must be a “301 Moved Permanently”
-# By : Ayoub el ghafraoui
+# Install nginx and start it
+apt-get -y install nginx
 
-ADD301_REDIRECT="\\\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+# Firewall setting: Allow Nginx to serve on HTTP
+ufw allow 'Nginx HTTP'
 
-sudo apt-get update
-sudo apt-get install -y nginx
-sudo chown -R ubuntu /var/www
-echo "Hello World!" > /var/www/html/index.nginx-debian.html
-sudo sed -i "30i $ADD301_REDIRECT" /etc/nginx/sites-available/default
-sudo service nginx restart
+# Override the default index file served as home page
+echo "Hello World!" >> /var/www/html/index.html
+
+#Give the user  ownership to website files
+sudo chown -R $USER:$USER /var/www/html
+sudo chmod -R 755 /var/www
+
+# Redirect to /redirect_me to a youtube video
+sed -i '37i\rewrite ^/redirect_me https://www.youtube.com/@itsYetunde;' /etc/nginx/sites-available/default
+
+service nginx start
