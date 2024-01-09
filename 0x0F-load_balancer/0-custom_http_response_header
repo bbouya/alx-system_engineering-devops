@@ -1,52 +1,19 @@
 #!/usr/bin/env bash
-# configure web-02 to be identical to web-01
-# The name of the custom HTTP header must be X-Served-By
-# The value of the custom HTTP header must be the hostname of the server Nginx is running on
-
-# Update system packages
+# Configuring web-02 to be identical to web-01
 sudo apt-get -y update
-
-# Install Nginx
 sudo apt-get -y install nginx
 
-# Allow incoming traffic on Nginx HTTP port (port 80) through the firewall
-sudo ufw allow 'Nginx HTTP'
+echo Holberton School > /var/www/html/index.nginx-debian.html
+echo Ceci n\'est pas une page > /var/www/html/custom_404.html
 
-# Create directories for website content and error pages
-sudo mkdir -p /var/www/html /var/www/error
+# Configuring redirection
+sudo sed -i '/^\sserver_name.*/a \        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
-# Set appropriate permissions for the website directories
-sudo chmod -R 755 /var/www
+# Custom error page
+sudo sed -i '/^\slocation.*/i \        error_page 404 /custom_404.html;' /etc/nginx/sites-available/default
 
-# Create a basic index.html file with "Hello World!" content
-echo 'Hello World!' > /var/www/html/index.html
+# Configuring response header
+sudo sed -i '/^\slocation.*/i \        add_header X-Served-By $hostname;' /etc/nginx/sites-available/default
 
-# Create a custom 404.html page with "Ceci n'est pas une page" content
-echo "Ceci n'est pas une page" > /var/www/html/404.html
-
-# Define the Nginx server configuration
-server_config="
-server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
-        server_name _;
-        add_header X-Served-By \$hostname;
-        location / {
-                try_files \$uri \$uri/ =404;
-        }
-        if (\$request_filename ~ redirect_me){
-                rewrite ^ https://youtube.com permanent;
-        }
-        error_page 404 /404.html;
-        location = /404.html {
-                internal;
-        }
-}"
-
-# Write the server configuration to the default Nginx configuration file
-echo "$server_config" > /etc/nginx/sites-enabled/default
-
-# Restart Nginx to apply the changes
-sudo service nginx restart
+# Running the server
+sudo service nginx start
