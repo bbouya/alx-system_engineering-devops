@@ -1,18 +1,25 @@
 #!/usr/bin/env bash
-# Script that will display information about subdomains
+# script to dig subdomain records for the domain specified
+# shellcheck disable=SC2027
+# shellcheck disable=SC2086
 
-DNS_info () {
-    ANSWER=$(dig $2 | grep -A1 'ANSWER SECTION:' | awk 'NR==2 {print $0}')
-    echo "The subdomain $1 is a $(echo $ANSWER | awk '{print $4}') record and points to $(echo $ANSWER | awk '{print $5}')"
+function get_a_records(){
+    if [[ -n "$2" ]]; then
+        response="$(dig "$2.$1" | grep -i -A1 "answer section" | tail -n 1)"
+        destination="$(echo "$response" | awk '{ print $5 }')"
+        record_type="$(echo "$response" | awk '{ print $4 }')"
+        echo  "The subdomain "$2" is a "$record_type" record and points to "$destination""
+
+    else
+        subdomains=(www lb-01 web-01 web-02)
+        for sub_d in "${subdomains[@]}"; do
+            response="$(dig "$sub_d.$1" | grep -i -A1 "answer section" | tail -n 1)"
+            destination="$(echo ""$response"" | awk '{ print $5 }')"
+            record_type="$(echo """$response""" | awk '{ print $4 }')"
+            echo "The subdomain ""$sub_d"" is a ""$record_type"" record and points to ""$destination"""
+
+        done
+    fi
+ 
 }
-
-if [[ $# == 1 ]]; then
-    subdomains=('www' 'lb-01' 'web-01' 'web-02')
-    for i in "${subdomains[@]}"; do
-	CONCAT="$i.$1"
-	DNS_info $i $CONCAT
-    done
-else
-    CONCAT="$2.$1"
-    DNS_info $2 $CONCAT
-fi
+get_a_records "$1" "$2";
