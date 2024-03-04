@@ -15,7 +15,6 @@ def top_ten(subreddit):
     headers = {
         "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
     }
-
     # Define parameters for the request, limiting the number of posts to 10
     params = {
         "limit": 10
