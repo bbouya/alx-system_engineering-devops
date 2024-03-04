@@ -3,6 +3,7 @@
 Script to print hot posts on a given Reddit subreddit.
 """
 
+import json
 import requests
 
 
@@ -29,13 +30,21 @@ def top_ten(subreddit):
         print("Subreddit not found or unavailable.")
         return
 
-    # Parse the JSON response and extract the 'data' section
+    # Attempt to parse the JSON response
     try:
-        results = response.json().get("data")
-    except ValueError:
+        data = response.json()
+    except json.JSONDecodeError:
         print("Error decoding JSON response.")
         return
 
+    # Check if 'data' key exists in the JSON response
+    if 'data' not in data or 'children' not in data['data']:
+        print("No data found in response.")
+        return
+
+    # Extract the 'data' section
+    results = data['data']
+
     # Print the titles of the top 10 hottest posts
-    for post in results.get("children"):
+    for post in results['children']:
         print(post.get("data").get("title"))
